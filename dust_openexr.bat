@@ -39,7 +39,7 @@ if not exist build MKDIR build
 
 CD build
 
-cmake .. -G"MinGW Makefiles" %DUST_CMAKE_COMPILER_HINT% -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX="%DUST_ROOT%\%EXTRACTED_SRC_FOLDER%" -DNAMESPACE_VERSIONING=OFF -DILMBASE_PACKAGE_PREFIX="%DUST_ROOT%\ilmbase-2.2.0" -DZLIB_ROOT="%DUST_ROOT%\zlib-1.2.8"
+cmake .. -G"MinGW Makefiles" %DUST_CMAKE_COMPILER_HINT% -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX="%DUST_ROOT%/%EXTRACTED_SRC_FOLDER%" -DNAMESPACE_VERSIONING=OFF -DILMBASE_PACKAGE_PREFIX="%DUST_ROOT%/ilmbase-2.2.0" -DZLIB_ROOT="%DUST_ROOT%/zlib-1.2.8"
 
 SET var=%PATH%
 SET searchVal=ilmbase-2.2.0
@@ -51,13 +51,13 @@ IF ERRORLEVEL 1 (
 	GOTO Label_PathAlreadySet
 )
 
-set PATH=%DUST_ROOT%\ilmbase-2.2.0\lib;%PATH%
+set PATH=%DUST_ROOT%/ilmbase-2.2.0/lib;%PATH%
 
 :Label_PathAlreadySet
 
-make -j8
+%DUST_MAKE% -j8
 
-make install
+%DUST_MAKE% install
 
 CD %DUST_ROOT%
 

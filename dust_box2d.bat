@@ -3,14 +3,14 @@
 REM Fetching Dust Database
 CALL dust.bat
 
-SET LIBRARY_NAME="zlib"
+SET LIBRARY_NAME="openal"
 
 SET AUTO_LATEST_SRC_URL="TODO"
-SET SRC_URL="http://sourceforge.net/projects/libpng/files/zlib/1.2.8/zlib-1.2.8.tar.gz/download?use_mirror=heanet&download="
-SET DOWNLOADED_FILE=zlib-1.2.8.tar.gz
-SET EXTRACT_COMMAND_UNCOMPRESS=%DUST_7Z% x -aoa zlib-1.2.8.tar.gz
-SET EXTRACT_COMMAND_ARCHIVE=%DUST_7Z% x -aoa zlib-1.2.8.tar
-SET EXTRACTED_SRC_FOLDER=zlib-1.2.8
+SET SRC_URL="https://box2d.googlecode.com/files/Box2D_v2.3.0.7z"
+SET DOWNLOADED_FILE=Box2D_v2.3.0.7z
+SET EXTRACT_COMMAND_UNCOMPRESS=%DUST_7Z% x -aoa Box2D_v2.3.0.7z
+SET EXTRACT_COMMAND_ARCHIVE=
+SET EXTRACTED_SRC_FOLDER=Box2D_v2.3.0
 
 CD %DUST_ROOT%
 
@@ -21,7 +21,7 @@ CD Compils
 if exist %DOWNLOADED_FILE% GOTO Label_AlreadyDownloaded
 
 ECHO DOWNLOADING MOFO
-wget %SRC_URL%
+wget --no-check-certificate %SRC_URL%
 
 :Label_AlreadyDownloaded
 
@@ -35,11 +35,14 @@ ECHO EXTRACTING MOFO
 
 CD %EXTRACTED_SRC_FOLDER%
 
+REM BOX2D ADDITIONAL STEP
+CD Box2D
+
 if not exist build MKDIR build
 
 CD build
 
-cmake .. -G"MinGW Makefiles" %DUST_CMAKE_COMPILER_HINT% -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX="%DUST_ROOT%/%EXTRACTED_SRC_FOLDER%"
+cmake .. -G"MinGW Makefiles" %DUST_CMAKE_COMPILER_HINT% -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX="%DUST_ROOT%/%EXTRACTED_SRC_FOLDER%" -DBOX2D_INSTALL=ON -DBOX2D_BUILD_EXAMPLES=OFF -DBOX2D_BUILD_SHARED=ON -DBOX2D_INSTALL_DOC=OFF
 
 %DUST_MAKE% -j8
 

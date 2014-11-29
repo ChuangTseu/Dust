@@ -3,14 +3,14 @@
 REM Fetching Dust Database
 CALL dust.bat
 
-SET LIBRARY_NAME="zlib"
+SET LIBRARY_NAME="openal"
 
 SET AUTO_LATEST_SRC_URL="TODO"
-SET SRC_URL="http://sourceforge.net/projects/libpng/files/zlib/1.2.8/zlib-1.2.8.tar.gz/download?use_mirror=heanet&download="
-SET DOWNLOADED_FILE=zlib-1.2.8.tar.gz
-SET EXTRACT_COMMAND_UNCOMPRESS=%DUST_7Z% x -aoa zlib-1.2.8.tar.gz
-SET EXTRACT_COMMAND_ARCHIVE=%DUST_7Z% x -aoa zlib-1.2.8.tar
-SET EXTRACTED_SRC_FOLDER=zlib-1.2.8
+SET SRC_URL="http://kcat.strangesoft.net/openal-releases/openal-soft-1.16.0.tar.bz2"
+SET DOWNLOADED_FILE=openal-soft-1.16.0.tar.bz2
+SET EXTRACT_COMMAND_UNCOMPRESS=%DUST_7Z% x -aoa openal-soft-1.16.0.tar.bz2
+SET EXTRACT_COMMAND_ARCHIVE=%DUST_7Z% x -aoa openal-soft-1.16.0.tar
+SET EXTRACTED_SRC_FOLDER=openal-soft-1.16.0
 
 CD %DUST_ROOT%
 
