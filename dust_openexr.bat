@@ -12,6 +12,8 @@ SET EXTRACT_COMMAND_UNCOMPRESS=%DUST_7Z% x -aoa openexr-2.2.0.tar.gz
 SET EXTRACT_COMMAND_ARCHIVE=%DUST_7Z% x -aoa openexr-2.2.0.tar
 SET EXTRACTED_SRC_FOLDER=openexr-2.2.0
 
+SET DEDICATED_PREFIX=%DUST_CURRENT_LIBRARY_DEDICATED_USR%/openexr-2.2.0
+
 CD %DUST_ROOT%
 
 if not exist Compils MKDIR Compils
@@ -39,7 +41,7 @@ if not exist build MKDIR build
 
 CD build
 
-cmake .. -G"MinGW Makefiles" %DUST_CMAKE_COMPILER_HINT% -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX="%DUST_ROOT%/%EXTRACTED_SRC_FOLDER%" -DNAMESPACE_VERSIONING=OFF -DILMBASE_PACKAGE_PREFIX="%DUST_ROOT%/ilmbase-2.2.0" -DZLIB_ROOT="%DUST_ROOT%/zlib-1.2.8"
+cmake .. -G"MinGW Makefiles" %DUST_CMAKE_COMPILER_HINT% -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX="%DEDICATED_PREFIX%" -DNAMESPACE_VERSIONING=OFF -DILMBASE_PACKAGE_PREFIX="%DUST_CURRENT_LIBRARY_DEDICATED_USR%/ilmbase-2.2.0" -DZLIB_ROOT="%DUST_CURRENT_LIBRARY_DEDICATED_USR%/zlib-1.2.8"
 
 SET var=%PATH%
 SET searchVal=ilmbase-2.2.0
@@ -51,7 +53,7 @@ IF ERRORLEVEL 1 (
 	GOTO Label_PathAlreadySet
 )
 
-set PATH=%DUST_ROOT%/ilmbase-2.2.0/lib;%PATH%
+set PATH=%DUST_CURRENT_LIBRARY_DEDICATED_USR%/ilmbase-2.2.0/bin;%PATH%
 
 :Label_PathAlreadySet
 
@@ -61,7 +63,13 @@ set PATH=%DUST_ROOT%/ilmbase-2.2.0/lib;%PATH%
 
 CD %DUST_ROOT%
 
+
+
+CALL dust_postinstall_lib.bat
+
 ECHO You should be right above your newly compiled library (%LIBRARY_NAME%)
+
+
 
 :Label_End
 

@@ -12,7 +12,7 @@ SET EXTRACT_COMMAND_UNCOMPRESS=%DUST_7Z% x -aoa glew-1.11.0.zip
 SET EXTRACT_COMMAND_ARCHIVE=
 SET EXTRACTED_SRC_FOLDER=glew-1.11.0
 
-SET GLEW_INSTALL_PREFIX="%DUST_ROOT%/%EXTRACTED_SRC_FOLDER%"
+SET DEDICATED_PREFIX=%DUST_CURRENT_LIBRARY_DEDICATED_USR%/glew-1.11.0
 
 CD %DUST_ROOT%
 
@@ -68,15 +68,19 @@ REM Make the glew visualinfo program. Skip this if you want just the lib
 :Label_Install
 REM GLEW CUSTOM INSTALL
 
-if not exist %GLEW_INSTALL_PREFIX% MKDIR %GLEW_INSTALL_PREFIX%
+if not exist %DEDICATED_PREFIX% MKDIR "%DEDICATED_PREFIX%"
 
-cp -r bin %GLEW_INSTALL_PREFIX%/
-cp -r lib %GLEW_INSTALL_PREFIX%/
-cp -r include %GLEW_INSTALL_PREFIX%/
+cp -r bin %DEDICATED_PREFIX%/
+cp -r lib %DEDICATED_PREFIX%/
+cp -r include %DEDICATED_PREFIX%/
 
 REM make install
 
 CD %DUST_ROOT%
+
+
+
+CALL dust_postinstall_lib.bat
 
 ECHO You should be right above your newly compiled library (%LIBRARY_NAME%)
 

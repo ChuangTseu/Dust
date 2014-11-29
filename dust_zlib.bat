@@ -12,6 +12,8 @@ SET EXTRACT_COMMAND_UNCOMPRESS=%DUST_7Z% x -aoa zlib-1.2.8.tar.gz
 SET EXTRACT_COMMAND_ARCHIVE=%DUST_7Z% x -aoa zlib-1.2.8.tar
 SET EXTRACTED_SRC_FOLDER=zlib-1.2.8
 
+SET DEDICATED_PREFIX=%DUST_CURRENT_LIBRARY_DEDICATED_USR%/zlib-1.2.8
+
 CD %DUST_ROOT%
 
 if not exist Compils MKDIR Compils
@@ -39,7 +41,7 @@ if not exist build MKDIR build
 
 CD build
 
-cmake .. -G"MinGW Makefiles" %DUST_CMAKE_COMPILER_HINT% -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX="%DUST_ROOT%/%EXTRACTED_SRC_FOLDER%"
+cmake .. -G"MinGW Makefiles" %DUST_CMAKE_COMPILER_HINT% -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX="%DEDICATED_PREFIX%"
 
 %DUST_MAKE% -j8
 
@@ -47,7 +49,12 @@ cmake .. -G"MinGW Makefiles" %DUST_CMAKE_COMPILER_HINT% -DCMAKE_BUILD_TYPE=Relea
 
 CD %DUST_ROOT%
 
+
+
+CALL dust_postinstall_lib.bat
+
 ECHO You should be right above your newly compiled library (%LIBRARY_NAME%)
+
 
 :Label_End
 
