@@ -9,6 +9,8 @@ echo %DUST_MINGW_W64%
 
 CD %DUST_MINGW_ROOT%
 
+wget "http://sourceforge.net/projects/mingw-w64/files/Toolchains targetting Win32/Personal Builds/mingw-builds/installer/repository.txt/download"
+
 cat repository.txt | grep posix | grep dwarf > correct_repo.txt
 cat repository.txt | grep posix | grep seh >> correct_repo.txt
 
